@@ -22,6 +22,6 @@ mflo $s1 #$s1=2y
 mult $t3,$s2
 mflo $s2 #$s1=3z
 
-sub $t4,$s0,$s1
-add $t7,$t4,$s2
+sub $t4,$s0,$s1 #4x - 2y
+add $t7,$t4,$s2 #(4x - 2y) + 3z
 
