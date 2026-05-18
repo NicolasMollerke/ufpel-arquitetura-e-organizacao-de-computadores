@@ -1,0 +1,37 @@
+add rd, rs, rt: Soma rs com rt e salva em rd (gera erro se houver estouro/overflow).
+sub rd, rs, rt: Subtrai rt de rs e salva em rd (com detecção de overflow).
+addu rd, rs, rt / subu rd, rs, rt: Soma e subtração idênticas às anteriores, mas ignoram o overflow (não geram erro).
+addi rt, rs, Img: Soma o registrador rs com uma constante (imediato) e salva em rt.
+addiu rt, rs, Img: Soma com constante ignorando overflow.
+
+and rd, rs, rt: Faz a operação lógica E bit a bit entre rs e rt, salvando em rd.
+or rd, rs, rt: Faz a operação lógica OU bit a bit entre rs e rt, salvando em rd.
+xor rd, rs, rt: Faz a operação lógica OU Exclusivo bit a bit entre rs e rt, salvando em rd.
+nor rd, rs, rt: Faz a operação lógica NÃO OU bit a bit entre rs e rt, salvando em rd.
+andi rt, rs, Img: Faz a operação E entre o registrador rs e um valor constante de 16 bits.
+ori rt, rs, Img: Faz a operação OU entre o registrador rs e um valor constante de 16 bits.
+xori rt, rs, Img: Faz a operação OU Exclusivo entre o registrador rs e uma constante de 16 bits.
+
+sll rd, rt, shamt: Desloca os bits de rt para a esquerda pelo número de vezes indicado em shamt (preenche com zeros). Equivalente a multiplicar por potências de 2.
+srl rd, rt, shamt: Desloca os bits de rt para a direita pelo número de vezes em shamt (preenche com zeros).
+sra rd, rt, shamt: Desloca os bits de rt para a direita, mas preserva o sinal do número (se for negativo, preenche com 1s; se positivo, com 0s).
+
+mult rs, rt / multu rs, rt: Multiplica rs por rt. Como o resultado pode ter até 64 bits, os 32 bits mais significativos vão para o registrador interno HI e os 32 menos significativos vão para o LO.
+div rs, rt / divu rs, rt: Divide rs por rt. O quociente vai para o registrador LO e o resto da divisão vai para o HI.
+mfhi rd: (Move From HI) Copia o valor do registrador especial HI para o registrador comum rd.
+mflo rd: (Move From LO) Copia o valor do registrador especial LO para o registrador comum rd.
+
+lw rt, deslocamento(rs): (Load Word) Lê uma palavra de 32 bits da memória e coloca no registrador rt.
+sw rt, deslocamento(rs): (Store Word) Copia o valor de 32 bits de rt e salva na memória.
+lh rt, deslocamento(rs) / lhu: (Load Halfword) Lê metade de uma palavra (16 bits) da memória. O lh estende o sinal, o lhu preenche com zeros.
+sh rt, deslocamento(rs): (Store Halfword) Salva 16 bits na memória.
+lb rt, deslocamento(rs) / lbu: (Load Byte) Lê apenas 1 byte (8 bits) da memória.
+sb rt, deslocamento(rs): (Store Byte) Salva apenas 1 byte na memória.
+lui rt, Img: (Load Upper Immediate) Carrega uma constante de 16 bits na metade superior (nos 16 bits mais significativos) de rt, zerando a metade inferior. Muito usada para montar endereços grandes.
+
+beq rs, rt, Label: (Branch if Equal) Se o valor de rs for igual ao de rt, o programa desvia para a linha marcada com Label.
+bne rs, rt, Label: (Branch if Not Equal) Se o valor de rs for diferente de rt, o programa desvia para a Label.
+slt rd, rs, rt / sltu: (Set on Less Than) Se rs for menor que rt, o registrador rd recebe o valor 1. Senão, recebe 0. (O sltu faz isso tratando os números como sem sinal) .
+slti rt, rs, Img / sltiu: Compara se rs é menor do que uma constante numérica.  
+j Label: (Jump) Desvia o fluxo do programa obrigatoriamente (sem condição) para a linha Label.
+jr rs: (Jump Register) Pula obrigatoriamente para o endereço de memória que estiver guardado dentro do registrador rs (muito usado para voltar de funções com o registrador $ra).
